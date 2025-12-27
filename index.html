@@ -13,344 +13,243 @@
         }
         
         body {
-            background: #0f1419;
+            background: #0d1b2a;
             color: white;
             min-height: 100vh;
-            overflow-x: hidden;
+            padding: 10px;
         }
         
         .container {
-            max-width: 100%;
-            margin: 0;
-            padding: 0;
+            width: 100%;
+            max-width: 100vw;
+            margin: 0 auto;
         }
         
         header {
-            background: #1a1f2e;
-            padding: 15px 20px;
-            border-bottom: 1px solid #2a3244;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #1b263b;
         }
         
         h1 {
-            font-size: 1.8rem;
-            color: #4dabf7;
-            text-align: center;
+            font-size: 2rem;
+            color: #48cae4;
+            margin-bottom: 5px;
         }
         
         .step {
             display: none;
-            min-height: 100vh;
+            animation: fadeIn 0.3s ease;
         }
         
         .step.active {
             display: block;
         }
         
-        .step1-content {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        
-        .step2-content {
-            max-width: 600px;
-            margin: 30px auto;
-            padding: 0 20px;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .input-container {
-            margin-bottom: 25px;
+            margin-bottom: 15px;
         }
         
         .input-field {
             width: 100%;
-            padding: 16px;
+            padding: 12px;
             font-size: 1.1rem;
-            background: #1e2536;
-            border: 2px solid #2a3244;
+            background: #1b263b;
+            border: 2px solid #415a77;
             color: white;
-            border-radius: 8px;
+            border-radius: 6px;
+            text-align: center;
             transition: all 0.2s;
         }
         
         .input-field:focus {
             outline: none;
-            border-color: #4dabf7;
-            background: #252d41;
-        }
-        
-        textarea.input-field {
-            min-height: 150px;
-            resize: vertical;
+            border-color: #48cae4;
         }
         
         .player-indicator {
-            background: linear-gradient(135deg, #4dabf7, #339af0);
+            background: #1b3a4b;
             color: white;
-            padding: 14px;
-            border-radius: 8px;
+            padding: 8px 15px;
+            border-radius: 5px;
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             text-align: center;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-        
-        .players-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .player-tag {
-            background: #2a3244;
-            color: #adb5bd;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: all 0.2s;
-        }
-        
-        .player-tag.current {
-            background: #20c997;
-            color: white;
-            transform: scale(1.05);
-            box-shadow: 0 2px 8px rgba(32, 201, 151, 0.3);
+            border-left: 4px solid #48cae4;
         }
         
         .history-container {
-            background: #0f1419;
-            min-height: calc(100vh - 70px);
-            padding: 15px;
-            overflow-y: auto;
-        }
-        
-        .history-grid {
-            display: grid;
-            grid-template-columns: 80px repeat(8, 1fr);
-            gap: 1px;
-            background: #2a3244;
+            background: #1b263b;
             border-radius: 8px;
-            overflow: hidden;
-            min-width: min-content;
+            padding: 10px;
+            max-height: 70vh;
+            overflow-y: auto;
+            margin-bottom: 15px;
         }
         
-        .history-header {
-            background: #1a1f2e;
-            padding: 12px 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-align: center;
-            position: sticky;
-            top: 70px;
-            z-index: 10;
+        .history-table {
+            display: table;
+            width: 100%;
+            min-width: 1200px;
         }
         
-        .round-header {
-            background: #1a1f2e;
+        .history-row {
+            display: table-row;
         }
         
         .history-cell {
-            background: #1e2536;
-            padding: 10px 6px;
-            min-height: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+            display: table-cell;
+            padding: 8px 4px;
+            vertical-align: middle;
+            border-bottom: 1px solid #2a3c5a;
+            min-width: 140px;
         }
         
         .round-cell {
-            background: #252d41;
+            width: 80px;
+            min-width: 80px;
+            text-align: center;
+            background: #0d1b2a;
+            position: sticky;
+            left: 0;
+            z-index: 1;
+        }
+        
+        .player-cell {
+            text-align: center;
+            padding: 8px 2px;
+        }
+        
+        .round-number {
+            color: #48cae4;
             font-weight: bold;
-            color: #4dabf7;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
         }
         
         .player-total {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: bold;
-            margin-bottom: 4px;
-        }
-        
-        .round-gain {
-            font-size: 0.85rem;
-            font-weight: 600;
             margin-bottom: 2px;
         }
         
         .round-details {
             font-size: 0.75rem;
-            color: #868e96;
-            line-height: 1.2;
+            color: #778da9;
+        }
+        
+        .round-gain {
+            font-weight: 600;
+            font-size: 0.8rem;
         }
         
         .positive {
-            color: #20c997;
+            color: #4cc9f0;
         }
         
         .negative {
-            color: #ff6b6b;
+            color: #f72585;
         }
         
         .controls {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             justify-content: center;
-            margin-top: 30px;
-            padding: 20px;
-            background: #1a1f2e;
-            position: sticky;
-            bottom: 0;
-            z-index: 100;
-            border-top: 1px solid #2a3244;
+            margin-top: 15px;
         }
         
         button {
-            padding: 14px 28px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: all 0.2s;
-            min-width: 160px;
+            min-width: 150px;
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #4dabf7, #339af0);
+            background: #1a759f;
             color: white;
         }
         
         .btn-primary:hover {
-            background: linear-gradient(135deg, #339af0, #228be6);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: #168aad;
         }
         
         .btn-danger {
-            background: linear-gradient(135deg, #ff6b6b, #fa5252);
+            background: #9d0208;
             color: white;
         }
         
         .btn-danger:hover {
-            background: linear-gradient(135deg, #fa5252, #e03131);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background: #d00000;
         }
         
-        .no-history {
-            text-align: center;
-            padding: 60px 20px;
-            color: #868e96;
-            font-size: 1.1rem;
+        .players-list {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 6px;
+            justify-content: center;
+            margin: 10px 0;
+            overflow-x: auto;
+            padding: 5px 0;
         }
         
-        @media (max-width: 1400px) {
-            .history-grid {
-                grid-template-columns: 70px repeat(8, minmax(140px, 1fr));
-            }
-            
-            .history-cell {
-                padding: 8px 4px;
-                min-height: 70px;
-            }
-            
-            .player-total {
-                font-size: 1.1rem;
-            }
+        .player-tag {
+            background: #415a77;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
         
+        .player-tag.current {
+            background: #4cc9f0;
+            transform: scale(1.05);
+        }
+        
+        /* Pour les petits écrans, on garde le scroll horizontal */
         @media (max-width: 1200px) {
-            .history-grid {
-                grid-template-columns: 60px repeat(8, minmax(120px, 1fr));
+            .history-container {
+                overflow-x: auto;
             }
             
-            .history-header {
-                font-size: 0.8rem;
-                padding: 10px 4px;
-            }
-            
-            .round-cell {
-                font-size: 1rem;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .history-grid {
-                grid-template-columns: 50px repeat(8, minmax(100px, 1fr));
+            .history-table {
+                min-width: 1000px;
             }
             
             .history-cell {
-                padding: 6px 3px;
-                min-height: 65px;
-            }
-            
-            .player-total {
-                font-size: 1rem;
-            }
-            
-            .round-gain {
-                font-size: 0.8rem;
-            }
-            
-            .round-details {
-                font-size: 0.7rem;
-            }
-            
-            button {
-                min-width: 140px;
-                padding: 12px 20px;
+                min-width: 120px;
             }
         }
         
         @media (max-width: 768px) {
-            .history-container {
-                padding: 10px;
-                overflow-x: auto;
-            }
-            
-            .history-grid {
-                min-width: 1200px;
-            }
-            
             .controls {
                 flex-direction: column;
-                padding: 15px;
+                align-items: center;
             }
             
             button {
                 width: 100%;
+                max-width: 300px;
             }
             
-            .step1-content,
-            .step2-content {
-                margin: 20px auto;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            header {
-                padding: 12px 15px;
+            .players-list {
+                justify-content: flex-start;
             }
             
-            h1 {
-                font-size: 1.5rem;
-            }
-            
-            .player-indicator {
-                padding: 12px;
-                font-size: 1rem;
-            }
-            
-            .input-field {
-                padding: 14px;
+            .player-tag {
+                font-size: 0.75rem;
+                padding: 3px 8px;
             }
         }
     </style>
@@ -362,38 +261,34 @@
         </header>
         
         <div id="step1" class="step active">
-            <div class="step1-content">
-                <div class="input-container">
-                    <textarea id="playersInput" class="input-field" placeholder="Un joueur par ligne" autofocus>Josh
+            <div class="input-container">
+                <textarea id="playersInput" class="input-field" rows="6" placeholder="Un joueur par ligne (max 8)" autofocus>Josh
 Géraldine
 Anael
 Esteban
 Qori
 Imene
 Françoise</textarea>
-                </div>
-                <div class="controls">
-                    <button id="startGame" class="btn-primary">Commencer</button>
-                </div>
+            </div>
+            <div class="controls">
+                <button id="startGame" class="btn-primary">Commencer</button>
             </div>
         </div>
         
         <div id="step2" class="step">
-            <div class="step2-content">
-                <div class="player-indicator">
-                    Manche <span id="currentRoundDisplay">1</span> • 
-                    <span id="currentPlayerName">Josh</span>
-                </div>
-                
-                <div id="inputFields"></div>
-                
-                <div class="players-list" id="playersListDisplay"></div>
+            <div class="player-indicator">
+                Manche <span id="currentRoundDisplay">1</span> • 
+                <span id="currentPlayerName">Josh</span>
             </div>
+            
+            <div id="inputFields"></div>
+            
+            <div class="players-list" id="playersListDisplay"></div>
         </div>
         
         <div id="step3" class="step">
             <div class="history-container" id="historyContainer">
-                <!-- L'historique sera généré ici -->
+                <div class="history-table" id="historyTable"></div>
             </div>
             <div class="controls">
                 <button id="newRound" class="btn-primary">Manche suivante</button>
@@ -431,12 +326,12 @@ Françoise</textarea>
                 .filter(line => line !== '');
             
             if (lines.length === 0) {
-                alert("Ajoutez au moins un joueur");
+                alert("Entrez au moins un joueur");
                 return false;
             }
             
             if (lines.length > 8) {
-                alert("Maximum 8 joueurs autorisés");
+                alert("Maximum 8 joueurs");
                 return false;
             }
             
@@ -459,11 +354,11 @@ Françoise</textarea>
 
         // Sauvegarder/Charger
         function saveGameState() {
-            localStorage.setItem('skullKingFullWidth', JSON.stringify(gameState));
+            localStorage.setItem('skullKingWide', JSON.stringify(gameState));
         }
 
         function loadGameState() {
-            const saved = localStorage.getItem('skullKingFullWidth');
+            const saved = localStorage.getItem('skullKingWide');
             if (saved) {
                 try {
                     gameState = JSON.parse(saved);
@@ -481,9 +376,6 @@ Françoise</textarea>
                 step.classList.remove('active');
             });
             document.getElementById(stepId).classList.add('active');
-            
-            // Scroll en haut quand on change d'étape
-            window.scrollTo(0, 0);
         }
 
         // Afficher liste des joueurs
@@ -508,13 +400,13 @@ Françoise</textarea>
             let placeholder = '';
             switch(currentInputType) {
                 case 'contracts':
-                    placeholder = `Contrats pour ${currentPlayer.name} (max: ${gameState.currentRound})`;
+                    placeholder = `Contrats annoncés (max: ${gameState.currentRound})`;
                     break;
                 case 'results':
-                    placeholder = `Réussites pour ${currentPlayer.name} (max: ${gameState.currentRound})`;
+                    placeholder = `Résultats obtenus (max: ${gameState.currentRound})`;
                     break;
                 case 'bonusTens':
-                    placeholder = `Bonus pour ${currentPlayer.name}`;
+                    placeholder = `Dizaines de points bonus`;
                     break;
             }
             
@@ -565,7 +457,7 @@ Françoise</textarea>
 
         // Calculer manche
         function calculateRound() {
-            // Calculer scores
+            // Calculer scores et running totals
             gameState.players.forEach(player => {
                 player.roundScore = calculateRoundScore(
                     gameState.currentRound,
@@ -574,6 +466,7 @@ Françoise</textarea>
                     player.bonusTens
                 );
                 
+                // Mettre à jour le running total (total jusqu'à cette manche)
                 player.runningTotal = player.totalScore;
                 player.totalScore += player.roundScore;
             });
@@ -593,7 +486,7 @@ Françoise</textarea>
             
             gameState.history.push(roundData);
             
-            // Réinitialiser
+            // Réinitialiser pour manche suivante
             gameState.players.forEach(player => {
                 player.contracts = 0;
                 player.results = 0;
@@ -614,65 +507,66 @@ Françoise</textarea>
             showStep('step3');
         }
 
-        // Afficher historique full width
+        // Afficher historique optimisé pour 8 joueurs
         function renderHistory() {
-            const container = document.getElementById('historyContainer');
+            const container = document.getElementById('historyTable');
             
             if (gameState.history.length === 0) {
-                container.innerHTML = '<div class="no-history">Aucune manche jouée</div>';
+                container.innerHTML = '<div style="text-align: center; padding: 30px; color: #778da9;">Aucune manche enregistrée</div>';
                 return;
             }
             
-            let html = '<div class="history-grid">';
+            let html = '<div class="history-row">';
             
-            // En-tête des colonnes
-            html += '<div class="history-header round-header">Manche</div>';
+            // En-tête avec la colonne Manche
+            html += '<div class="history-cell round-cell">Manche</div>';
+            
+            // En-tête des joueurs
             gameState.players.forEach(player => {
-                html += `<div class="history-header">${player.name}</div>`;
+                html += `<div class="history-cell player-cell" style="background: #1b3a4b; font-weight: bold; border-bottom: 2px solid #48cae4;">
+                           ${player.name}
+                         </div>`;
             });
             
-            // Remplir avec des cellules vides si moins de 8 joueurs
-            for (let i = gameState.players.length; i < 8; i++) {
-                html += '<div class="history-header"></div>';
-            }
+            html += '</div>';
             
-            // Lignes de données
-            gameState.history.forEach((roundData) => {
-                // Cellule de la manche
-                html += `<div class="history-cell round-cell">${roundData.round}</div>`;
+            // Données des manches
+            gameState.history.forEach((roundData, index) => {
+                html += '<div class="history-row">';
+                
+                // Numéro de manche
+                html += `<div class="history-cell round-cell">
+                           <div class="round-number">${roundData.round}</div>
+                         </div>`;
                 
                 // Données des joueurs
                 gameState.players.forEach(player => {
                     const playerData = roundData.players.find(p => p.name === player.name);
                     if (playerData) {
                         const totalAfterRound = playerData.runningTotal + playerData.roundScore;
-                        const gainSign = playerData.roundScore >= 0 ? '+' : '';
                         
-                        html += `<div class="history-cell">
+                        html += `<div class="history-cell player-cell">
                                     <div class="player-total">${totalAfterRound}</div>
-                                    <div class="round-gain ${playerData.roundScore >= 0 ? 'positive' : 'negative'}">
-                                        ${gainSign}${playerData.roundScore}
-                                    </div>
                                     <div class="round-details">
-                                        C${playerData.contracts} R${playerData.results} B${playerData.bonusTens}
+                                        <span class="round-gain ${playerData.roundScore >= 0 ? 'positive' : 'negative'}">
+                                            ${playerData.roundScore >= 0 ? '+' : ''}${playerData.roundScore}
+                                        </span>
+                                        <div>C${playerData.contracts} R${playerData.results} B${playerData.bonusTens}</div>
                                     </div>
                                  </div>`;
                     } else {
-                        html += '<div class="history-cell">-</div>';
+                        html += '<div class="history-cell player-cell">-</div>';
                     }
                 });
                 
-                // Cellules vides pour les colonnes non utilisées
-                for (let i = gameState.players.length; i < 8; i++) {
-                    html += '<div class="history-cell"></div>';
-                }
+                html += '</div>';
             });
             
-            html += '</div>';
             container.innerHTML = html;
             
-            // Scroll en bas pour voir la dernière manche
-            container.scrollTop = container.scrollHeight;
+            // Scroll vers le bas
+            const historyContainer = document.getElementById('historyContainer');
+            historyContainer.scrollTop = historyContainer.scrollHeight;
         }
 
         // Nouvelle manche
@@ -683,20 +577,18 @@ Françoise</textarea>
 
         // Nouvelle partie
         function startNewGame() {
-            if (confirm("Recommencer une nouvelle partie ?")) {
-                gameState = {
-                    currentRound: 1,
-                    players: [],
-                    history: [],
-                    currentPlayerIndex: 0,
-                    currentInputIndex: 0,
-                    inputs: ['contracts', 'results', 'bonusTens']
-                };
-                
-                localStorage.removeItem('skullKingFullWidth');
-                showStep('step1');
-                document.getElementById('playersInput').focus();
-            }
+            gameState = {
+                currentRound: 1,
+                players: [],
+                history: [],
+                currentPlayerIndex: 0,
+                currentInputIndex: 0,
+                inputs: ['contracts', 'results', 'bonusTens']
+            };
+            
+            localStorage.removeItem('skullKingWide');
+            showStep('step1');
+            document.getElementById('playersInput').focus();
         }
 
         // Initialisation
@@ -719,21 +611,21 @@ Françoise</textarea>
                 }
             });
             
-            document.getElementById('newRound').addEventListener('click', startNewRound);
-            document.getElementById('newGame').addEventListener('click', startNewGame);
+            document.getElementById('newRound').addEventListener('click', () => {
+                startNewRound();
+            });
             
-            // Raccourcis clavier
+            document.getElementById('newGame').addEventListener('click', () => {
+                if (confirm("Nouvelle partie ?")) {
+                    startNewGame();
+                }
+            });
+            
+            // Entrée pour démarrer
             document.getElementById('playersInput').addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' && e.ctrlKey) {
                     e.preventDefault();
                     document.getElementById('startGame').click();
-                }
-            });
-            
-            // Navigation clavier dans l'historique
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && document.getElementById('step3').classList.contains('active')) {
-                    startNewRound();
                 }
             });
         });
