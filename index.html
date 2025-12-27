@@ -13,165 +13,90 @@
         }
         
         body {
-            background: #1a1a2e;
+            background: #0f1419;
             color: white;
             min-height: 100vh;
-            padding: 20px;
+            overflow-x: hidden;
         }
         
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
         }
         
         header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #2d3436;
+            background: #1a1f2e;
+            padding: 15px 20px;
+            border-bottom: 1px solid #2a3244;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         h1 {
-            font-size: 2.5rem;
-            color: #74b9ff;
-            margin-bottom: 5px;
+            font-size: 1.8rem;
+            color: #4dabf7;
+            text-align: center;
         }
         
         .step {
             display: none;
-            animation: fadeIn 0.3s ease;
+            min-height: 100vh;
         }
         
         .step.active {
             display: block;
         }
         
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .step1-content {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .step2-content {
+            max-width: 600px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
         
         .input-container {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         
         .input-field {
             width: 100%;
-            padding: 15px;
-            font-size: 1.2rem;
-            background: #2d3436;
-            border: 2px solid #636e72;
+            padding: 16px;
+            font-size: 1.1rem;
+            background: #1e2536;
+            border: 2px solid #2a3244;
             color: white;
             border-radius: 8px;
-            text-align: center;
             transition: all 0.2s;
         }
         
         .input-field:focus {
             outline: none;
-            border-color: #74b9ff;
+            border-color: #4dabf7;
+            background: #252d41;
+        }
+        
+        textarea.input-field {
+            min-height: 150px;
+            resize: vertical;
         }
         
         .player-indicator {
-            background: #0984e3;
+            background: linear-gradient(135deg, #4dabf7, #339af0);
             color: white;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 14px;
+            border-radius: 8px;
             font-weight: bold;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .history-container {
-            background: #2d3436;
-            border-radius: 10px;
-            padding: 0px;
-            max-width: 100%;
-            overflow-y: auto;
             margin-bottom: 20px;
-        }
-        
-        .history-row {
-            display: grid;
-            grid-template-columns: 60px repeat(auto-fit, minmax(120px, 1fr));
-            gap: 10px;
-            padding: 12px;
-            border-bottom: 1px solid #404040;
-        }
-        
-        .history-header {
-            font-weight: bold;
-            background: #1a1a2e;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        
-        .round-number {
-            color: #74b9ff;
-            font-weight: bold;
             text-align: center;
-        }
-        
-        .player-column {
-            text-align: center;
-        }
-        
-        .player-total {
-            font-size: 1.3rem;
-            font-weight: bold;
-            margin-bottom: 3px;
-        }
-        
-        .round-details {
-            font-size: 0.85rem;
-            color: #b2bec3;
-        }
-        
-        .round-gain {
-            font-weight: 600;
-        }
-        
-        .positive {
-            color: #00b894;
-        }
-        
-        .negative {
-            color: #e17055;
-        }
-        
-        .controls {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-        
-        .btn-primary {
-            background: #0984e3;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: #0770c4;
-        }
-        
-        .btn-danger {
-            background: #d63031;
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background: #b92b2b;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
         
         .players-list {
@@ -179,34 +104,253 @@
             flex-wrap: wrap;
             gap: 8px;
             justify-content: center;
-            margin: 15px 0;
+            margin: 20px 0;
         }
         
         .player-tag {
-            background: #636e72;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 15px;
+            background: #2a3244;
+            color: #adb5bd;
+            padding: 6px 14px;
+            border-radius: 20px;
             font-size: 0.9rem;
+            transition: all 0.2s;
         }
         
         .player-tag.current {
-            background: #00b894;
-            transform: scale(1.1);
+            background: #20c997;
+            color: white;
+            transform: scale(1.05);
+            box-shadow: 0 2px 8px rgba(32, 201, 151, 0.3);
+        }
+        
+        .history-container {
+            background: #0f1419;
+            min-height: calc(100vh - 70px);
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .history-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(8, 1fr);
+            gap: 1px;
+            background: #2a3244;
+            border-radius: 8px;
+            overflow: hidden;
+            min-width: min-content;
+        }
+        
+        .history-header {
+            background: #1a1f2e;
+            padding: 12px 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-align: center;
+            position: sticky;
+            top: 70px;
+            z-index: 10;
+        }
+        
+        .round-header {
+            background: #1a1f2e;
+        }
+        
+        .history-cell {
+            background: #1e2536;
+            padding: 10px 6px;
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .round-cell {
+            background: #252d41;
+            font-weight: bold;
+            color: #4dabf7;
+            font-size: 1.1rem;
+        }
+        
+        .player-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        
+        .round-gain {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+        
+        .round-details {
+            font-size: 0.75rem;
+            color: #868e96;
+            line-height: 1.2;
+        }
+        
+        .positive {
+            color: #20c997;
+        }
+        
+        .negative {
+            color: #ff6b6b;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 30px;
+            padding: 20px;
+            background: #1a1f2e;
+            position: sticky;
+            bottom: 0;
+            z-index: 100;
+            border-top: 1px solid #2a3244;
+        }
+        
+        button {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.2s;
+            min-width: 160px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4dabf7, #339af0);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #339af0, #228be6);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b, #fa5252);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #fa5252, #e03131);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        
+        .no-history {
+            text-align: center;
+            padding: 60px 20px;
+            color: #868e96;
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 1400px) {
+            .history-grid {
+                grid-template-columns: 70px repeat(8, minmax(140px, 1fr));
+            }
+            
+            .history-cell {
+                padding: 8px 4px;
+                min-height: 70px;
+            }
+            
+            .player-total {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .history-grid {
+                grid-template-columns: 60px repeat(8, minmax(120px, 1fr));
+            }
+            
+            .history-header {
+                font-size: 0.8rem;
+                padding: 10px 4px;
+            }
+            
+            .round-cell {
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .history-grid {
+                grid-template-columns: 50px repeat(8, minmax(100px, 1fr));
+            }
+            
+            .history-cell {
+                padding: 6px 3px;
+                min-height: 65px;
+            }
+            
+            .player-total {
+                font-size: 1rem;
+            }
+            
+            .round-gain {
+                font-size: 0.8rem;
+            }
+            
+            .round-details {
+                font-size: 0.7rem;
+            }
+            
+            button {
+                min-width: 140px;
+                padding: 12px 20px;
+            }
         }
         
         @media (max-width: 768px) {
-            .history-row {
-                grid-template-columns: 50px repeat(2, 1fr);
-                font-size: 0.85rem;
+            .history-container {
+                padding: 10px;
+                overflow-x: auto;
+            }
+            
+            .history-grid {
+                min-width: 1200px;
             }
             
             .controls {
                 flex-direction: column;
+                padding: 15px;
             }
             
             button {
                 width: 100%;
+            }
+            
+            .step1-content,
+            .step2-content {
+                margin: 20px auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 12px 15px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .player-indicator {
+                padding: 12px;
+                font-size: 1rem;
+            }
+            
+            .input-field {
+                padding: 14px;
             }
         }
     </style>
@@ -218,33 +362,39 @@
         </header>
         
         <div id="step1" class="step active">
-            <div class="input-container">
-                <textarea id="playersInput" class="input-field" rows="6" placeholder="Un joueur par ligne" autofocus>Josh
+            <div class="step1-content">
+                <div class="input-container">
+                    <textarea id="playersInput" class="input-field" placeholder="Un joueur par ligne" autofocus>Josh
 Géraldine
 Anael
 Esteban
 Qori
 Imene
 Françoise</textarea>
-            </div>
-            <div class="controls">
-                <button id="startGame" class="btn-primary">Commencer</button>
+                </div>
+                <div class="controls">
+                    <button id="startGame" class="btn-primary">Commencer</button>
+                </div>
             </div>
         </div>
         
         <div id="step2" class="step">
-            <div class="player-indicator">
-                Manche <span id="currentRoundDisplay">1</span> • 
-                <span id="currentPlayerName">Josh</span>
+            <div class="step2-content">
+                <div class="player-indicator">
+                    Manche <span id="currentRoundDisplay">1</span> • 
+                    <span id="currentPlayerName">Josh</span>
+                </div>
+                
+                <div id="inputFields"></div>
+                
+                <div class="players-list" id="playersListDisplay"></div>
             </div>
-            
-            <div id="inputFields"></div>
-            
-            <div class="players-list" id="playersListDisplay"></div>
         </div>
         
         <div id="step3" class="step">
-            <div class="history-container" id="historyContainer"></div>
+            <div class="history-container" id="historyContainer">
+                <!-- L'historique sera généré ici -->
+            </div>
             <div class="controls">
                 <button id="newRound" class="btn-primary">Manche suivante</button>
                 <button id="newGame" class="btn-danger">Nouvelle partie</button>
@@ -280,7 +430,15 @@ Françoise</textarea>
                 .map(line => line.trim())
                 .filter(line => line !== '');
             
-            if (lines.length === 0) return false;
+            if (lines.length === 0) {
+                alert("Ajoutez au moins un joueur");
+                return false;
+            }
+            
+            if (lines.length > 8) {
+                alert("Maximum 8 joueurs autorisés");
+                return false;
+            }
             
             gameState.players = lines.map((name, index) => ({
                 id: index + 1,
@@ -290,7 +448,7 @@ Françoise</textarea>
                 results: 0,
                 bonusTens: 0,
                 roundScore: 0,
-                runningTotal: 0  // Pour suivre le total à chaque manche
+                runningTotal: 0
             }));
             
             gameState.currentPlayerIndex = 0;
@@ -301,11 +459,11 @@ Françoise</textarea>
 
         // Sauvegarder/Charger
         function saveGameState() {
-            localStorage.setItem('skullKingMinimal', JSON.stringify(gameState));
+            localStorage.setItem('skullKingFullWidth', JSON.stringify(gameState));
         }
 
         function loadGameState() {
-            const saved = localStorage.getItem('skullKingMinimal');
+            const saved = localStorage.getItem('skullKingFullWidth');
             if (saved) {
                 try {
                     gameState = JSON.parse(saved);
@@ -323,6 +481,9 @@ Françoise</textarea>
                 step.classList.remove('active');
             });
             document.getElementById(stepId).classList.add('active');
+            
+            // Scroll en haut quand on change d'étape
+            window.scrollTo(0, 0);
         }
 
         // Afficher liste des joueurs
@@ -347,13 +508,13 @@ Françoise</textarea>
             let placeholder = '';
             switch(currentInputType) {
                 case 'contracts':
-                    placeholder = `Contrats annoncés (max: ${gameState.currentRound})`;
+                    placeholder = `Contrats pour ${currentPlayer.name} (max: ${gameState.currentRound})`;
                     break;
                 case 'results':
-                    placeholder = `Résultats obtenus (max: ${gameState.currentRound})`;
+                    placeholder = `Réussites pour ${currentPlayer.name} (max: ${gameState.currentRound})`;
                     break;
                 case 'bonusTens':
-                    placeholder = `Dizaines de points bonus`;
+                    placeholder = `Bonus pour ${currentPlayer.name}`;
                     break;
             }
             
@@ -404,7 +565,7 @@ Françoise</textarea>
 
         // Calculer manche
         function calculateRound() {
-            // Calculer scores et running totals
+            // Calculer scores
             gameState.players.forEach(player => {
                 player.roundScore = calculateRoundScore(
                     gameState.currentRound,
@@ -413,7 +574,6 @@ Françoise</textarea>
                     player.bonusTens
                 );
                 
-                // Mettre à jour le running total (total jusqu'à cette manche)
                 player.runningTotal = player.totalScore;
                 player.totalScore += player.roundScore;
             });
@@ -427,13 +587,13 @@ Françoise</textarea>
                     results: p.results,
                     bonusTens: p.bonusTens,
                     roundScore: p.roundScore,
-                    runningTotal: p.runningTotal  // Total avant cette manche
+                    runningTotal: p.runningTotal
                 }))
             };
             
             gameState.history.push(roundData);
             
-            // Réinitialiser pour manche suivante
+            // Réinitialiser
             gameState.players.forEach(player => {
                 player.contracts = 0;
                 player.results = 0;
@@ -454,53 +614,64 @@ Françoise</textarea>
             showStep('step3');
         }
 
-        // Afficher historique amélioré
+        // Afficher historique full width
         function renderHistory() {
             const container = document.getElementById('historyContainer');
             
             if (gameState.history.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 20px; color: #636e72;">Aucune manche</div>';
+                container.innerHTML = '<div class="no-history">Aucune manche jouée</div>';
                 return;
             }
             
-            let html = '<div class="history-row history-header">';
-            html += '<div class="round-number">Manche</div>';
+            let html = '<div class="history-grid">';
             
+            // En-tête des colonnes
+            html += '<div class="history-header round-header">Manche</div>';
             gameState.players.forEach(player => {
-                html += `<div class="player-column">${player.name}</div>`;
+                html += `<div class="history-header">${player.name}</div>`;
             });
             
-            html += '</div>';
+            // Remplir avec des cellules vides si moins de 8 joueurs
+            for (let i = gameState.players.length; i < 8; i++) {
+                html += '<div class="history-header"></div>';
+            }
             
-            // Pour chaque manche dans l'historique
-            gameState.history.forEach((roundData, index) => {
-                html += '<div class="history-row">';
-                html += `<div class="round-number">${roundData.round}</div>`;
+            // Lignes de données
+            gameState.history.forEach((roundData) => {
+                // Cellule de la manche
+                html += `<div class="history-cell round-cell">${roundData.round}</div>`;
                 
+                // Données des joueurs
                 gameState.players.forEach(player => {
                     const playerData = roundData.players.find(p => p.name === player.name);
                     if (playerData) {
-                        // Total du joueur AVANT cette manche + gains de cette manche
                         const totalAfterRound = playerData.runningTotal + playerData.roundScore;
+                        const gainSign = playerData.roundScore >= 0 ? '+' : '';
                         
-                        html += `<div class="player-column">
+                        html += `<div class="history-cell">
                                     <div class="player-total">${totalAfterRound}</div>
+                                    <div class="round-gain ${playerData.roundScore >= 0 ? 'positive' : 'negative'}">
+                                        ${gainSign}${playerData.roundScore}
+                                    </div>
                                     <div class="round-details">
-                                        <span class="round-gain ${playerData.roundScore >= 0 ? 'positive' : 'negative'}">
-                                            ${playerData.roundScore >= 0 ? '+' : ''}${playerData.roundScore}
-                                        </span>
-                                        <div>C${playerData.contracts} R${playerData.results} B${playerData.bonusTens}</div>
+                                        C${playerData.contracts} R${playerData.results} B${playerData.bonusTens}
                                     </div>
                                  </div>`;
                     } else {
-                        html += '<div class="player-column">-</div>';
+                        html += '<div class="history-cell">-</div>';
                     }
                 });
                 
-                html += '</div>';
+                // Cellules vides pour les colonnes non utilisées
+                for (let i = gameState.players.length; i < 8; i++) {
+                    html += '<div class="history-cell"></div>';
+                }
             });
             
+            html += '</div>';
             container.innerHTML = html;
+            
+            // Scroll en bas pour voir la dernière manche
             container.scrollTop = container.scrollHeight;
         }
 
@@ -512,18 +683,20 @@ Françoise</textarea>
 
         // Nouvelle partie
         function startNewGame() {
-            gameState = {
-                currentRound: 1,
-                players: [],
-                history: [],
-                currentPlayerIndex: 0,
-                currentInputIndex: 0,
-                inputs: ['contracts', 'results', 'bonusTens']
-            };
-            
-            localStorage.removeItem('skullKingMinimal');
-            showStep('step1');
-            document.getElementById('playersInput').focus();
+            if (confirm("Recommencer une nouvelle partie ?")) {
+                gameState = {
+                    currentRound: 1,
+                    players: [],
+                    history: [],
+                    currentPlayerIndex: 0,
+                    currentInputIndex: 0,
+                    inputs: ['contracts', 'results', 'bonusTens']
+                };
+                
+                localStorage.removeItem('skullKingFullWidth');
+                showStep('step1');
+                document.getElementById('playersInput').focus();
+            }
         }
 
         // Initialisation
@@ -546,21 +719,21 @@ Françoise</textarea>
                 }
             });
             
-            document.getElementById('newRound').addEventListener('click', () => {
-                startNewRound();
-            });
+            document.getElementById('newRound').addEventListener('click', startNewRound);
+            document.getElementById('newGame').addEventListener('click', startNewGame);
             
-            document.getElementById('newGame').addEventListener('click', () => {
-                if (confirm("Nouvelle partie ?")) {
-                    startNewGame();
-                }
-            });
-            
-            // Entrée pour démarrer
+            // Raccourcis clavier
             document.getElementById('playersInput').addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' && e.ctrlKey) {
                     e.preventDefault();
                     document.getElementById('startGame').click();
+                }
+            });
+            
+            // Navigation clavier dans l'historique
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && document.getElementById('step3').classList.contains('active')) {
+                    startNewRound();
                 }
             });
         });
