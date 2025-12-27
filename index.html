@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skull King</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: #1a1a2e;
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #2d3436;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #74b9ff;
+            margin-bottom: 5px;
+        }
+        
+        .step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .input-container {
+            margin-bottom: 20px;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.2rem;
+            background: #2d3436;
+            border: 2px solid #636e72;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #74b9ff;
+        }
+        
+        .player-indicator {
+            background: #0984e3;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .history-container {
+            background: #2d3436;
+            border-radius: 10px;
+            padding: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+        
+        .history-row {
+            display: grid;
+            grid-template-columns: 60px repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            padding: 12px;
+            border-bottom: 1px solid #404040;
+        }
+        
+        .history-header {
+            font-weight: bold;
+            background: #1a1a2e;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .round-number {
+            color: #74b9ff;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        .player-column {
+            text-align: center;
+        }
+        
+        .player-total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .round-details {
+            font-size: 0.85rem;
+            color: #b2bec3;
+        }
+        
+        .round-gain {
+            font-weight: 600;
+        }
+        
+        .positive {
+            color: #00b894;
+        }
+        
+        .negative {
+            color: #e17055;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-primary {
+            background: #0984e3;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0770c4;
+        }
+        
+        .btn-danger {
+            background: #d63031;
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #b92b2b;
+        }
+        
+        .players-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        
+        .player-tag {
+            background: #636e72;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .player-tag.current {
+            background: #00b894;
+            transform: scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            .history-row {
+                grid-template-columns: 50px repeat(2, 1fr);
+                font-size: 0.85rem;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Skull King</h1>
+        </header>
+        
+        <div id="step1" class="step active">
+            <div class="input-container">
+                <textarea id="playersInput" class="input-field" rows="6" placeholder="Un joueur par ligne" autofocus>Josh
+Géraldine
+Anael
+Esteban
+Qori
+Imene
+Françoise</textarea>
+            </div>
+            <div class="controls">
+                <button id="startGame" class="btn-primary">Commencer</button>
+            </div>
+        </div>
+        
+        <div id="step2" class="step">
+            <div class="player-indicator">
+                Manche <span id="currentRoundDisplay">1</span> • 
+                <span id="currentPlayerName">Josh</span>
+            </div>
+            
+            <div id="inputFields"></div>
+            
+            <div class="players-list" id="playersListDisplay"></div>
+        </div>
+        
+        <div id="step3" class="step">
+            <div class="history-container" id="historyContainer"></div>
+            <div class="controls">
+                <button id="newRound" class="btn-primary">Manche suivante</button>
+                <button id="newGame" class="btn-danger">Nouvelle partie</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // État du jeu
+        let gameState = {
+            currentRound: 1,
+            players: [],
+            history: [],
+            currentPlayerIndex: 0,
+            currentInputIndex: 0,
+            inputs: ['contracts', 'results', 'bonusTens']
+        };
+
+        // Formule EXACTE
+        function calculateRoundScore(round, contracts, results, bonusTens) {
+            const B = Number(round) || 0;
+            const C = Number(contracts) || 0;
+            const D = Number(results) || 0;
+            const E = Number(bonusTens) || 0;
+            
+            return (Math.floor(1-(Math.abs(C)/(C+1))))*((Math.floor(1-(Math.abs(D)/(D+1))))*(B*10) + (1-(Math.floor(1-(Math.abs(D)/(D+1)))))*(B*-10)) + (Math.ceil((C/(1+C))))*((1- (Math.ceil((Math.abs(C-D))/(Math.abs(C-D) + 1))))*(20*C))+(Math.ceil((C/(1+C))))*((Math.ceil((Math.abs(C-D))/(Math.abs(C-D) + 1)))*(Math.abs(C-D)*-10)) + E*10;
+        }
+
+        // Initialisation des joueurs
+        function initializePlayers() {
+            const textarea = document.getElementById('playersInput');
+            const lines = textarea.value.split('\n')
+                .map(line => line.trim())
+                .filter(line => line !== '');
+            
+            if (lines.length === 0) return false;
+            
+            gameState.players = lines.map((name, index) => ({
+                id: index + 1,
+                name: name,
+                totalScore: 0,
+                contracts: 0,
+                results: 0,
+                bonusTens: 0,
+                roundScore: 0,
+                runningTotal: 0  // Pour suivre le total à chaque manche
+            }));
+            
+            gameState.currentPlayerIndex = 0;
+            gameState.currentInputIndex = 0;
+            
+            return true;
+        }
+
+        // Sauvegarder/Charger
+        function saveGameState() {
+            localStorage.setItem('skullKingMinimal', JSON.stringify(gameState));
+        }
+
+        function loadGameState() {
+            const saved = localStorage.getItem('skullKingMinimal');
+            if (saved) {
+                try {
+                    gameState = JSON.parse(saved);
+                    return true;
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+            return false;
+        }
+
+        // Navigation entre étapes
+        function showStep(stepId) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById(stepId).classList.add('active');
+        }
+
+        // Afficher liste des joueurs
+        function renderPlayersList() {
+            const container = document.getElementById('playersListDisplay');
+            container.innerHTML = '';
+            
+            gameState.players.forEach((player, index) => {
+                const tag = document.createElement('span');
+                tag.className = `player-tag ${index === gameState.currentPlayerIndex ? 'current' : ''}`;
+                tag.textContent = player.name;
+                container.appendChild(tag);
+            });
+        }
+
+        // Afficher champ de saisie
+        function renderInputFields() {
+            const container = document.getElementById('inputFields');
+            const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+            const currentInputType = gameState.inputs[gameState.currentInputIndex];
+            
+            let placeholder = '';
+            switch(currentInputType) {
+                case 'contracts':
+                    placeholder = `Contrats annoncés (max: ${gameState.currentRound})`;
+                    break;
+                case 'results':
+                    placeholder = `Résultats obtenus (max: ${gameState.currentRound})`;
+                    break;
+                case 'bonusTens':
+                    placeholder = `Dizaines de points bonus`;
+                    break;
+            }
+            
+            container.innerHTML = `
+                <input type="number" 
+                       id="currentInput" 
+                       class="input-field"
+                       placeholder="${placeholder}"
+                       min="0" 
+                       max="${currentInputType === 'bonusTens' ? '' : gameState.currentRound}"
+                       autofocus>
+            `;
+            
+            document.getElementById('currentRoundDisplay').textContent = gameState.currentRound;
+            document.getElementById('currentPlayerName').textContent = currentPlayer.name;
+            renderPlayersList();
+            
+            const input = document.getElementById('currentInput');
+            input.addEventListener('keydown', handleInputEnter);
+            input.focus();
+        }
+
+        // Gestion Entrée
+        function handleInputEnter(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const value = parseInt(document.getElementById('currentInput').value) || 0;
+                const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+                const currentInputType = gameState.inputs[gameState.currentInputIndex];
+                
+                currentPlayer[currentInputType] = value;
+                
+                gameState.currentInputIndex++;
+                
+                if (gameState.currentInputIndex >= gameState.inputs.length) {
+                    gameState.currentInputIndex = 0;
+                    gameState.currentPlayerIndex++;
+                    
+                    if (gameState.currentPlayerIndex >= gameState.players.length) {
+                        calculateRound();
+                        return;
+                    }
+                }
+                
+                renderInputFields();
+            }
+        }
+
+        // Calculer manche
+        function calculateRound() {
+            // Calculer scores et running totals
+            gameState.players.forEach(player => {
+                player.roundScore = calculateRoundScore(
+                    gameState.currentRound,
+                    player.contracts,
+                    player.results,
+                    player.bonusTens
+                );
+                
+                // Mettre à jour le running total (total jusqu'à cette manche)
+                player.runningTotal = player.totalScore;
+                player.totalScore += player.roundScore;
+            });
+            
+            // Ajouter à l'historique
+            const roundData = {
+                round: gameState.currentRound,
+                players: gameState.players.map(p => ({
+                    name: p.name,
+                    contracts: p.contracts,
+                    results: p.results,
+                    bonusTens: p.bonusTens,
+                    roundScore: p.roundScore,
+                    runningTotal: p.runningTotal  // Total avant cette manche
+                }))
+            };
+            
+            gameState.history.push(roundData);
+            
+            // Réinitialiser pour manche suivante
+            gameState.players.forEach(player => {
+                player.contracts = 0;
+                player.results = 0;
+                player.bonusTens = 0;
+            });
+            
+            gameState.currentRound++;
+            gameState.currentPlayerIndex = 0;
+            gameState.currentInputIndex = 0;
+            
+            saveGameState();
+            showResults();
+        }
+
+        // Afficher résultats
+        function showResults() {
+            renderHistory();
+            showStep('step3');
+        }
+
+        // Afficher historique amélioré
+        function renderHistory() {
+            const container = document.getElementById('historyContainer');
+            
+            if (gameState.history.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 20px; color: #636e72;">Aucune manche</div>';
+                return;
+            }
+            
+            let html = '<div class="history-row history-header">';
+            html += '<div class="round-number">Manche</div>';
+            
+            gameState.players.forEach(player => {
+                html += `<div class="player-column">${player.name}</div>`;
+            });
+            
+            html += '</div>';
+            
+            // Pour chaque manche dans l'historique
+            gameState.history.forEach((roundData, index) => {
+                html += '<div class="history-row">';
+                html += `<div class="round-number">${roundData.round}</div>`;
+                
+                gameState.players.forEach(player => {
+                    const playerData = roundData.players.find(p => p.name === player.name);
+                    if (playerData) {
+                        // Total du joueur AVANT cette manche + gains de cette manche
+                        const totalAfterRound = playerData.runningTotal + playerData.roundScore;
+                        
+                        html += `<div class="player-column">
+                                    <div class="player-total">${totalAfterRound}</div>
+                                    <div class="round-details">
+                                        <span class="round-gain ${playerData.roundScore >= 0 ? 'positive' : 'negative'}">
+                                            ${playerData.roundScore >= 0 ? '+' : ''}${playerData.roundScore}
+                                        </span>
+                                        <div>C${playerData.contracts} R${playerData.results} B${playerData.bonusTens}</div>
+                                    </div>
+                                 </div>`;
+                    } else {
+                        html += '<div class="player-column">-</div>';
+                    }
+                });
+                
+                html += '</div>';
+            });
+            
+            container.innerHTML = html;
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Nouvelle manche
+        function startNewRound() {
+            renderInputFields();
+            showStep('step2');
+        }
+
+        // Nouvelle partie
+        function startNewGame() {
+            gameState = {
+                currentRound: 1,
+                players: [],
+                history: [],
+                currentPlayerIndex: 0,
+                currentInputIndex: 0,
+                inputs: ['contracts', 'results', 'bonusTens']
+            };
+            
+            localStorage.removeItem('skullKingMinimal');
+            showStep('step1');
+            document.getElementById('playersInput').focus();
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            const hasSavedGame = loadGameState();
+            
+            if (hasSavedGame && gameState.players.length > 0) {
+                showStep('step3');
+                renderHistory();
+            } else {
+                showStep('step1');
+                document.getElementById('playersInput').focus();
+            }
+            
+            // Événements
+            document.getElementById('startGame').addEventListener('click', () => {
+                if (initializePlayers()) {
+                    renderInputFields();
+                    showStep('step2');
+                }
+            });
+            
+            document.getElementById('newRound').addEventListener('click', () => {
+                startNewRound();
+            });
+            
+            document.getElementById('newGame').addEventListener('click', () => {
+                if (confirm("Nouvelle partie ?")) {
+                    startNewGame();
+                }
+            });
+            
+            // Entrée pour démarrer
+            document.getElementById('playersInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && e.ctrlKey) {
+                    e.preventDefault();
+                    document.getElementById('startGame').click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
