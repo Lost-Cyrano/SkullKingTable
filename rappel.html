@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rappel - Cartes Skull King</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a3a, #2c3e50);
+            color: #f0f0f0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            color: #f1c40f;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #bdc3c7;
+            font-style: italic;
+        }
+        
+        .game-info {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.1rem;
+            border-left: 5px solid #e74c3c;
+        }
+        
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card-category {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .category-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid;
+            font-size: 1.6rem;
+        }
+        
+        .category-icon {
+            margin-right: 12px;
+            font-size: 1.8rem;
+        }
+        
+        .card-list {
+            list-style-type: none;
+        }
+        
+        .card-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .card-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .card-icon {
+            width: 30px;
+            margin-right: 12px;
+            text-align: center;
+            font-size: 1.4rem;
+        }
+        
+        .card-name {
+            font-size: 1.2rem;
+        }
+        
+        .card-desc {
+            color: #bdc3c7;
+            font-size: 0.95rem;
+            margin-top: 3px;
+        }
+        
+        /* Couleurs spécifiques pour chaque catégorie */
+        .basic-cards {
+            border-top: 5px solid #2ecc71;
+        }
+        
+        .basic-cards .category-title {
+            color: #2ecc71;
+            border-bottom-color: #2ecc71;
+        }
+        
+        .strong-cards {
+            border-top: 5px solid #e74c3c;
+        }
+        
+        .strong-cards .category-title {
+            color: #e74c3c;
+            border-bottom-color: #e74c3c;
+        }
+        
+        .pirate-cards {
+            border-top: 5px solid #f39c12;
+        }
+        
+        .pirate-cards .category-title {
+            color: #f39c12;
+            border-bottom-color: #f39c12;
+        }
+        
+        .siren-cards {
+            border-top: 5px solid #9b59b6;
+        }
+        
+        .siren-cards .category-title {
+            color: #9b59b6;
+            border-bottom-color: #9b59b6;
+        }
+        
+        .special-cards {
+            border-top: 5px solid #1abc9c;
+        }
+        
+        .special-cards .category-title {
+            color: #1abc9c;
+            border-bottom-color: #1abc9c;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+        
+        .highlight {
+            color: #f1c40f;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-crown"></i> Rappel - Skull King</h1>
+            <p class="subtitle">Mémo rapide des cartes et de leurs valeurs</p>
+        </header>
+        
+        <div class="game-info">
+            <p>Le <span class="highlight">Skull King</span> est un jeu de levées où certaines cartes ont des pouvoirs spéciaux. Ce rappel vous aidera à vous souvenir des différentes cartes et de leurs rôles.</p>
+        </div>
+        
+        <div class="cards-container">
+            <!-- Cartes de base -->
+            <div class="card-category basic-cards">
+                <h2 class="category-title">
+                    <i class="fas fa-diamond category-icon"></i>
+                    Cartes de base
+                </h2>
+                <ul class="card-list">
+                    <li>
+                        <div class="card-icon" style="color: #e74c3c;">♥</div>
+                        <div>
+                            <div class="card-name">Coeurs</div>
+                            <div class="card-desc">Cartes normales sans pouvoir spécial</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card-icon" style="color: #2c3e50;">♠</div>
+                        <div>
+                            <div class="card-name">Piques</div>
+                            <div class="card-desc">Cartes normales sans pouvoir spécial</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card-icon" style="color: #f39c12;">♦</div>
+                        <div>
+                            <div class="card-name">Carreaux</div>
+                            <div class="card-desc">Cartes normales sans pouvoir spécial</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Atouts forts -->
+            <div class="card-category strong-cards">
+                <h2 class="category-title">
+                    <i class="fas fa-fire category-icon"></i>
+                    Atouts forts
+                </h2>
+                <ul class="card-list">
+                    <li>
+                        <div class="card-icon">1-14</div>
+                        <div>
+                            <div class="card-name">Atouts 1 à 14</div>
+                            <div class="card-desc">Cartes fortes qui battent les cartes de base</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Pirates -->
+            <div class="card-category pirate-cards">
+                <h2 class="category-title">
+                    <i class="fas fa-skull-crossbones category-icon"></i>
+                    Pirates
+                </h2>
+                <ul class="card-list">
+                    <li>
+                        <div class="card-icon">J</div>
+                        <div>
+                            <div class="card-name">Valet (Pirate)</div>
+                            <div class="card-desc">Battent toutes les cartes sauf le Skull King</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card-icon">Q</div>
+                        <div>
+                            <div class="card-name">Dame (Pirate)</div>
+                            <div class="card-desc">Battent toutes les cartes sauf le Skull King</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card-icon">K</div>
+                        <div>
+                            <div class="card-name">Roi (Pirate)</div>
+                            <div class="card-desc">Battent toutes les cartes sauf le Skull King</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Sirènes -->
+            <div class="card-category siren-cards">
+                <h2 class="category-title">
+                    <i class="fas fa-water category-icon"></i>
+                    Sirènes
+                </h2>
+                <ul class="card-list">
+                    <li>
+                        <div class="card-icon">20</div>
+                        <div>
+                            <div class="card-name">Atout 20 (Sirène)</div>
+                            <div class="card-desc">Capture les pirates mais perd contre le Skull King</div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card-icon">21</div>
+                        <div>
+                            <div class="card-name">Atout 21 (Sirène)</div>
+                            <div class="card-desc">Capture les pirates mais perd contre le Skull King</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Cartes spéciales -->
+            <div class="card-category special-cards">
+                <h2 class="category-title">
+                    <i class="fas fa-star category-icon"></i>
+                    Cartes spéciales
+                </h2>
+                <ul class="card-list">
+                    <li>
+                        <div class="card-icon"><i class="fas fa-crown"></i></div>
+                        <div>
+                            <div class="card-name">Joker (Skull King)</div>
+                            <div class="card-desc">La carte la plus forte, bat tout sauf les sirènes jouées seules</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <footer>
+            <p>Mémo Skull King | Les valeurs peuvent varier selon les éditions du jeu</p>
+            <p>Note : Les sirènes battent les pirates, mais si une sirène est jouée seule (sans autre carte de la même couleur), elle perd contre le Skull King.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Ajout d'un effet d'animation au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-category');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s, transform 0.5s';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+            
+            // Ajout d'un effet de clic sur les catégories
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
